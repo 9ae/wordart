@@ -1,0 +1,71 @@
+#toolbox {
+	display:inline;
+	width:200px;
+	
+	font-size:12px;
+}
+
+#workarea {
+}
+
+#fonteditor {
+	border:2px #323232 solid;
+}
+
+.ui-accordion-content {
+	padding: 1em 1em !important;
+}
+
+body{
+	background-color: #B0E0E6;
+}
+
+table, td {
+	font-size:12px;
+}
+
+/*#underCanvas {
+	position:absolute;
+    padding:20px;
+	z-index:0;
+}
+*/
+
+#overCanvas 
+{ 
+position:absolute;
+top:10px;
+left:10px;
+z-index:2;
+display:none; }
+
+#editCanvas{
+position:absolute;
+top:10px;
+left:10px;
+z-index:1;
+display:none; }
+
+#brushCursor{
+	position:absolute;
+	display:none;
+	border:#00FF00 solid 2px;
+	z-index:10;
+}
+
+#preview {
+position:absolute;
+top:10px;
+left:10px;
+z-index:0; }
+
+#mousebox {
+	visibility:hidden;
+	position:absolute;
+	z-index:50;
+	border:#ff0000 solid 1px;
+}
+
+#tempData{ display:none; }
+
+#GoImgButton{ height:100$;}

@@ -1,8 +1,9 @@
 Shade Me With Words
 =====
 
-I. <a href="http://tux.valour.me/wordart">Demo</a>
-<img src="http://www.tux.valour.me/wordart/docimgs/wordart-turles.png">
+<a href="http://tux.valour.me/wordart"><img src="http://www.tux.valour.me/wordart/docimgs/wordart-turles.png"><a/>
+
+I. Demo: http://tux.valour.me/wordart
 
 II. Languages & Libraries <br />
 1. Javascript (jQuery, jQueryUI)  <br />

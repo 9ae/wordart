@@ -305,12 +305,13 @@ Wordsmith.drawText = function(shad,t){
 	shad.ctx.fillStyle = $('#bgcolor').val();
 	var intensity = parseFloat($('#intent').val());
 	shad.ctx.fillRect(0,0, shad.canvas.width, shad.canvas.height);
+	var fontsize = Wordsmith.dolce.size+(5*Wordsmith.dolce.size)*(t/255)
 	shad.ctx.save();
-	shad.ctx.font = "normal "+Wordsmith.dolce.size+"px "+Wordsmith.dolce.face;
+	shad.ctx.font = "normal "+fontsize+"px "+Wordsmith.dolce.face;
 	shad.ctx.textAlign = "start";
 	shad.ctx.fillStyle = "#"+Wordsmith.dolce.color;
 	var tw = shad.ctx.measureText(Wordsmith.dolce.title).width;
-	
+	/*	Random
 	var density = //(255-t)*Math.sqrt(theCanvas.width*theCanvas.height)*intensity;
 	(255-t)*Math.sqrt((theCanvas.width/tw)*(theCanvas.height/Wordsmith.dolce.size))*intensity;
 	for(var n=0; n<density; n++){
@@ -327,6 +328,31 @@ Wordsmith.drawText = function(shad,t){
 			}
 		shad.ctx.fillText(Wordsmith.dolce.title,0,0);
 		shad.ctx.restore();
+	}
+	*/
+	var vspace = ((t/255)-0.1)*100;
+	var hspace = ((t/255)-0.1)*100;
+	var vmove = vspace+fontsize;
+	var hmove = hspace+tw;
+	if(Wordsmith.dolce.angle>0){
+	vmove = vmove/Math.cos(Wordsmith.dolce.angle);
+	hmove = hmove*Math.sin(Wordsmith.dolce.angle);
+	}
+	
+	 for(var y=0; y<(theCanvas.height+vmove); y+=vmove){
+		for(var x=0; x<(theCanvas.width+hmove); x+=hmove){
+		shad.ctx.save();
+		shad.ctx.translate(x,y);
+		shad.ctx.rotate(Wordsmith.dolce.angle);
+		if(Wordsmith.dolce.rainbow)
+			{
+				shad.ctx.fillStyle = 'rgb('+Math.floor((Math.random()*255))+','+
+										Math.floor((Math.random()*255))+','+
+										Math.floor((Math.random()*255))+')';
+			}
+		shad.ctx.fillText(Wordsmith.dolce.title,0,0);
+		shad.ctx.restore();
+		}
 	}
 	
 	shad.ctx.restore();

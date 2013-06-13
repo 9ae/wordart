@@ -172,6 +172,7 @@ function MirrorBreak(imgurl) {
 	$('#preview').hide();
 	$('#toolbox_mirror').hide();
 	$('#toolbox_settings').show();
+	Wordsmith.redraw();
 };
 // IMAGE LOADER CODE END
 
@@ -254,7 +255,7 @@ function FontProp() {
 var Wordsmith = Wordsmith || {};
 //declare namespace variables
 Wordsmith.dolce = new FontProp();
-Wordsmith.fontlist = ['Merienda', 'Dr+Sugiyama'];
+Wordsmith.fontlist = ['Merienda', 'Dr Sugiyama', 'Crafty Girls'];
 Wordsmith.canvas = null;
 Wordsmith.ctx = null;
 
@@ -269,7 +270,7 @@ Wordsmith.ctx.translate(25,50);
 Wordsmith.ctx.rotate(Wordsmith.dolce.angle);
 Wordsmith.ctx.fillText(Wordsmith.dolce.title, 0,0);
 Wordsmith.ctx.restore();
-console.log("canvas font updated");
+console.log("canvas font updated "+Wordsmith.dolce.face);
 }
 
 Wordsmith.changeFactory = function(id) {
@@ -360,19 +361,20 @@ Wordsmith.drawText = function(shad,t){
 
 Wordsmith.init = function() {
 	//load fonts
-	var fs = Wordsmith.fontlist.join('|');
+/*	var fs = Wordsmith.fontlist.join('|');
 	fontstring = "http://fonts.googleapis.com/css?family=" + fs
 	var link = $('<link />');
 	$(link).attr('rel', 'stylesheet');
 	$(link).attr('type', 'text/css');
 	$(link).attr('href', fontstring);
-	$('head').append(link);
-
+	$('head').append(link); */
+	
 	// populate selection list
 	var len = Wordsmith.fontlist.length;
 	var st = $('#fox_face');
 	for (var i = 0; i < len; i++) {
-		var realname = Wordsmith.fontlist[i].replace('+', ' ');
+		var realname = Wordsmith.fontlist[i];
+		//.replace('+', ' ');
 		$(st).append('<option value="' + realname + '">' + realname + '</option>');
 	}
 
@@ -380,8 +382,6 @@ Wordsmith.init = function() {
 	Wordsmith.canvas = document.getElementById('fontprev');
 	Wordsmith.ctx = Wordsmith.canvas.getContext('2d');
 
-	// draw to font canvas
-	Wordsmith.redraw();
 
 	$('[id^="fox_"]').each(function() {
 		var myname = $(this).attr('id');
@@ -505,4 +505,3 @@ window.onload = function() {
 
 	$('#toolbox_settings').hide();
 };
-

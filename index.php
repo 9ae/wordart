@@ -3,10 +3,20 @@
 		<script type="text/javascript" src="../lib/jscolor/jscolor.js"></script>
 		<script type="text/javascript" src="../lib/jquery/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="../lib/jqui_flick/js/jquery-ui-1.8.11.custom.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/webfont/1.4.2/webfont.js"></script>
 		<script type="text/javascript" src="helpers.js"></script>
+		<script>
+				WebFont.load({
+    google: {
+      families: Wordsmith.fontlist
+    }
+  });
+		</script>
 		<title>Shade Me with Words [beta]</title>
 		<link href="../lib/jqui_flick/css/flick/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css" />
 		<link href="style.css" rel="stylesheet" type="text/css" />
+		<!--link rel="stylesheet" type="text/css"
+	href="http://fonts.googleapis.com/css?family=Merienda|Dr+Sugiyama|Crafty+Girls" /-->
 	</head>
 	<body>
 		<div id="toolbox" title="Toolbox">

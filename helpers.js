@@ -217,18 +217,18 @@ Gray.pixGraypost = function(r, g, b, a) {
 		avg += Gray.egskalor;
 		avg *= invsat;
 	}
-	avg = Math.floor(avg/Gray.div)*Gray.div;
+	avg = 5+Math.floor(avg/Gray.div)*Gray.div;
 
 	return [avg, avg, avg, a];
 }
 
 Gray.doIt = function() {
-	Gray.div = Math.floor(255 / Gray.lvs);
+	Gray.div = Math.floor(250 / Gray.lvs);
 	var imgPixels = editor.getImageData(0, 0, eCanvas.width, eCanvas.height);
 	sudo.putImageData(imgPixels, 0, 0);
 	apply2pixels(theCanvas,sudo,Gray.pixGraypost);
 	 tonesList = [];
-	 tonesList[0]=0;
+	 tonesList[0]=5;
 	 for (var i = 1; i < Gray.lvs; i++) {
 		 tonesList.push(tonesList[i-1] + Gray.div);
 	 }
@@ -264,7 +264,7 @@ Wordsmith.ctx.clearRect(0,0, Wordsmith.canvas.width, Wordsmith.canvas.height);
 Wordsmith.ctx.font = "normal "+Wordsmith.dolce.size+"px "+Wordsmith.dolce.face;
 Wordsmith.ctx.textAlign = "start";
 Wordsmith.ctx.fillStyle = "#"+Wordsmith.dolce.color;
-	
+
 Wordsmith.ctx.save();
 Wordsmith.ctx.translate(25,50);
 Wordsmith.ctx.rotate(Wordsmith.dolce.angle);
@@ -339,7 +339,7 @@ Wordsmith.drawText = function(shad,t){
 	vmove = vmove/Math.cos(Wordsmith.dolce.angle);
 	hmove = hmove*Math.sin(Wordsmith.dolce.angle);
 	}
-	
+
 	 for(var y=0; y<(theCanvas.height+vmove); y+=vmove){
 		for(var x=0; x<(theCanvas.width+hmove); x+=hmove){
 		shad.ctx.save();
@@ -355,7 +355,7 @@ Wordsmith.drawText = function(shad,t){
 		shad.ctx.restore();
 		}
 	}
-	
+
 	shad.ctx.restore();
 }
 
@@ -368,7 +368,7 @@ Wordsmith.init = function() {
 	$(link).attr('type', 'text/css');
 	$(link).attr('href', fontstring);
 	$('head').append(link); */
-	
+
 	// populate selection list
 	var len = Wordsmith.fontlist.length;
 	var st = $('#fox_face');
@@ -411,10 +411,13 @@ Exe.createShadowCanvas = function(num){
 }
 
 Exe.startMake = function(){
-	Exe.bgcolors = hex2rgb($('#bgcolor').val());
+	var bgcolor = $('#bgcolor').val();
+	Exe.bgcolors = hex2rgb(bgcolor);
 	var tl = tonesList.length;
 	for(var i=0; i<tl; i++){
 		var tonefill = Exe.createShadowCanvas(i);
+		tonefill.ctx.fillStyle = '#'+bgcolor;
+		tonefill.ctx.fillRect(0, 0, theCanvas.width, theCanvas.height);
 		Wordsmith.drawText(tonefill,tonesList[i]);
 		Exe.shades.push(tonefill.ctx);
 		console.log("made text fill for "+tonesList[i]);
@@ -432,7 +435,7 @@ Exe.matchPixels = function(){
 		var shadyrows = [];
 		for(var s=0; s<Exe.shades.length; s++){
 			shadyrows.push(Exe.shades[s].getImageData(0,y,xmax,1).data)
-		} 
+		}
 		for(var x=0; x<lenx; x+=4){
 			var whi = tonesList.indexOf(row0[x]);
 			if(whi!=-1){
@@ -441,13 +444,13 @@ Exe.matchPixels = function(){
 			row1.data[x+2] = shadyrows[whi][x+2];
 			row1.data[x+3] = 255;
 			}
-			else { 
+			else {
 			row1.data[x] = Exe.bgcolors.r;
 			row1.data[x+1] = Exe.bgcolors.g;
 			row1.data[x+2] = Exe.bgcolors.b;
 			row1.data[x+3] = 255;
 			}
-			
+
 		}
 		sudo.putImageData(row1,0,y);
 	}
